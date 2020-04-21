@@ -12,12 +12,11 @@ import {mapState, mapGetters, mapActions} from 'vuex'
 
 export default {
   name:'DisplayForm',
-   data(){
+  data(){
     return{
-
     }
   },
-    computed:{
+  computed:{
     ...mapGetters(['listItem','isWorking'])
   }
 }

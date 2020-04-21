@@ -16,8 +16,8 @@ export default {
 
     }
   },
-  watch:{
-    ...mapGetters(['listItem'])
+  computed:{
+    ...mapGetters(['listItem','isWorking'])
   }
 }
 </script>

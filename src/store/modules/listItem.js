@@ -21,7 +21,6 @@ export default {
       return axios.get(`web/Lists(guid'${_spPageContextInfo.pageListId.replace("{","").replace("}","")}')/items(${rootGetters.id})`)
       .then(response => {
         commit('GET_LISTITEM', response)
-
       })
       .catch(err => {
 
