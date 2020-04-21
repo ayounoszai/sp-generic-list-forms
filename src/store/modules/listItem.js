@@ -27,8 +27,8 @@ export default {
 
       })
       .finally(() =>{
-        setTimeout(() => { commit('SET_IS_WORKING', false); console.log('list ITEM finished')}, 2000);
-        
+        commit('SET_IS_WORKING', false)
+        // setTimeout(() => { commit('SET_IS_WORKING', false); console.log('list ITEM finished')}, 2000);
       })
     }
   }

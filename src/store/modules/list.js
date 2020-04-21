@@ -53,8 +53,8 @@ export default {
 
       })
       .finally(() =>{
-        // commit('SET_IS_WORKING', false)
-        setTimeout(() => { commit('SET_IS_WORKING', false); console.log('list meta finished') }, 4000);
+        commit('SET_IS_WORKING', false)
+        // setTimeout(() => { commit('SET_IS_WORKING', false); console.log('list meta finished') }, 4000);
       })
     }
   }
