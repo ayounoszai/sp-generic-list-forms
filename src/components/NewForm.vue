@@ -35,7 +35,14 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['source','isWorking'])
+    ...mapGetters(['source','isWorking','isListItemSaved'])
+  },
+  watch:{
+   isListItemSaved:function(){
+     if(this.isListItemSaved === true){
+       window.location.href = decodeURIComponent(this.$store.getters.source)
+     }
+   },
   },
   methods:{
     validateData(){
@@ -51,6 +58,7 @@ export default {
     },
     save(){
       let data = JSON.parse(JSON.stringify(this.formFields))
+      this.$store.dispatch('CREATE_LISTITEM_ASYNC', data)
     },
     cancel(){
       window.location.href = decodeURIComponent(this.$store.getters.source);
