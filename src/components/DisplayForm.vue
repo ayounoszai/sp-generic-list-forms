@@ -1,8 +1,19 @@
 <template>
   <el-container>
     <el-main>
-      <p>Display Form {{listItem.Title}}</p>
+      <el-form :model='formFields' ref="thisForm" :rules="formRules" label-width="120px" v-loading="isWorking" element-loading-text="" element-loading-spinner='none' element-loading-custom-class='isWorking'>
+        <!-- Title -->
+         <el-form-item label="Title">
+          <el-input v-model="listItem.Title" :disabled="true"></el-input>
+        </el-form-item>
+      </el-form>
     </el-main>
+
+    <!-- Buttons -->
+    <el-main class="sp-vue-body sp-vue-body-buttons">
+      <!-- <el-button type="primary" @click="validateData" :disabled="isWorking">Save</el-button> -->
+      <el-button @click="cancel">Cancel</el-button>
+    </el-main>    
   </el-container>
 </template>
 
@@ -18,6 +29,11 @@ export default {
   },
   computed:{
     ...mapGetters(['listItem','isWorking'])
+  },
+  methods:{
+    cancel(){
+      window.location.href = decodeURIComponent(this.$store.getters.source);
+    }
   }
 }
 </script>

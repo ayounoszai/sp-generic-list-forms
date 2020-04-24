@@ -80,4 +80,9 @@ section.el-container{
   text-align:right;
   padding-right:20px;
 }
+
+/* having the specific classes NOT scoped is the only way i can get the text for "disabled" textboxes to be dark enough to read */
+.el-input.is-disabled .el-input__inner{
+  color:#444 !important
+}
 </style>
