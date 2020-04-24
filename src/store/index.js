@@ -8,6 +8,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    isInitializing:false,
     isWorking:0,
     formDigestValue:'',
   },
@@ -24,6 +25,9 @@ export default new Vuex.Store({
       let string = reg.exec(href);
       return string ? Number(string[1]) : 0;
     },
+    isInitializing(state){
+      return state.isInitializing
+    },
     isWorking(state){
       return state.isWorking > 0
     },
@@ -35,6 +39,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    SET_IS_INITIALIZING(state, isInitializing){
+      state.isInitializing = isInitializing
+    },
     SET_IS_WORKING(state, isWorking){
       if(isWorking){
         state.isWorking += 1  

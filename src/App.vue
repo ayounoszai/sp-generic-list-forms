@@ -6,7 +6,7 @@
     </div> -->
     <new-form v-if="currentForm === 'new'"/>
     <edit-form v-if="currentForm === 'edit'"/>
-    <display-form v-if="currentForm === 'display'"/>
+    <display-form v-if="currentForm === 'display' || isInitializing"/>
     <unknown-form v-if="currentForm === 'unknown'"/>
     
     
@@ -34,14 +34,7 @@ export default {
     store.dispatch('GET_FORMDIGESTVALUE')
   },
   computed:{
-    ...mapGetters(['currentForm','source','id', 'isWorking'])
-  },
-  watch:{
-    currentForm:function(){
-      if(this.id > 0 && ['edit','display'].includes(this.currentForm)){
-        store.dispatch('GET_LISTITEM_ASYNC')
-      }
-    }
+    ...mapGetters(['currentForm','source','id', 'isInitializing'])
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-main>
-      <el-form  ref="thisForm" label-width="120px" v-loading="isWorking" element-loading-text="" element-loading-spinner='none' element-loading-custom-class='isWorking'>
+      <el-form  ref="thisForm" label-width="120px" v-loading="isInitializing" element-loading-text="" element-loading-spinner='none' element-loading-custom-class='isWorking'>
         <!-- Title -->
          <el-form-item label="Title">
           <el-input v-model="listItem.Title" :disabled="true"></el-input>
@@ -28,7 +28,7 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['listItem','isWorking'])
+    ...mapGetters(['listItem','isInitializing'])
   },
   methods:{
     cancel(){

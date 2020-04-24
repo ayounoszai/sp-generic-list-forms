@@ -24,7 +24,7 @@ export default {
   },
   actions:{
     GET_LISTITEM_ASYNC({dispatch, commit, getters, rootGetters}){
-      commit('SET_IS_WORKING', true)
+      commit('SET_IS_INITIALIZING', true)
       return axios.get(`web/Lists(guid'${rootGetters.listGuid}')/items(${rootGetters.id})`)
       .then(response => {
         commit('GET_LISTITEM', response)
@@ -33,8 +33,8 @@ export default {
 
       })
       .finally(() =>{
-        commit('SET_IS_WORKING', false)
-        // setTimeout(() => { commit('SET_IS_WORKING', false); console.log('list ITEM finished')}, 2000);
+        // commit('SET_IS_INITIALIZING', false)
+        setTimeout(() => { commit('SET_IS_INITIALIZING', false); console.log('list ITEM finished')}, 2000);
       })
     },
     CREATE_LISTITEM_ASYNC({dispatch, commit, getters, rootGetters}, payload){
