@@ -11,8 +11,8 @@
 
     <!-- Buttons -->
     <el-main class="sp-vue-body sp-vue-body-buttons">
-      <el-button type="primary" @click="validateData">Save</el-button>
-      <el-button @click="cancel">Cancel</el-button>
+      <el-button type="primary" @click="validateData" :disabled="isSaving">Save</el-button>
+      <el-button @click="cancel" :disabled="isSaving">Cancel</el-button>
     </el-main>    
   </el-container>
 </template>
@@ -33,7 +33,7 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['listItem','isListItemSaved'])
+    ...mapGetters(['listItem','isSaving','isListItemSaved'])
   },
   watch:{
     isListItemSaved:function(){
@@ -55,12 +55,12 @@ export default {
       })
     },
     save(){
+      this.$notify.info({title: 'Saving...', duration:2000});
       this.$store.dispatch('CREATE_LISTITEM_ASYNC')
     },
     cancel(){
       window.location.href = decodeURIComponent(this.$store.getters.source);
     }
   }
-
 }
 </script>

@@ -60,7 +60,7 @@ export default {
       .finally(() =>{
         if(rootGetters.id > 0 && ['edit','display'].includes(getters.currentForm)){
           // dispatch('GET_LISTITEM_ASYNC')
-          setTimeout(() => { dispatch('GET_LISTITEM_ASYNC'); console.log('list meta finished') }, 1000);
+          setTimeout(() => { dispatch('GET_LISTITEM_ASYNC')}, 1000);
         }
         else{
           commit('SET_IS_INITIALIZING', false)

@@ -9,7 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isInitializing:true,
-    isWorking:0,
+    isSaving:false,
     formDigestValue:'',
   },
   getters:{
@@ -28,8 +28,8 @@ export default new Vuex.Store({
     isInitializing(state){
       return state.isInitializing
     },
-    isWorking(state){
-      return state.isWorking > 0
+    isSaving(state){
+      return state.isSaving
     },
     formDigestValue(state){
       return state.formDigestValue
@@ -42,18 +42,8 @@ export default new Vuex.Store({
     SET_IS_INITIALIZING(state, isInitializing){
       state.isInitializing = isInitializing
     },
-    SET_IS_WORKING(state, isWorking){
-      if(isWorking){
-        state.isWorking += 1  
-      }
-      else{
-        state.isWorking -= 1
-      }
-
-      
-      if(state.isWorking < 0){
-        state.isWorking = 0
-      }
+    SET_IS_SAVING(state, isSaving){
+      state.isSaving = isSaving
     },
     SET_FORMDIGESTVALUE(state, response){
       state.formDigestValue = response.data.d.GetContextWebInformation.FormDigestValue

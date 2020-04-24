@@ -36,7 +36,7 @@ export default {
       })
     },
     CREATE_LISTITEM_ASYNC({dispatch, commit, getters, rootGetters}){
-      commit('SET_IS_WORKING', true)
+      commit('SET_IS_SAVING', true)
       let headers = {
         'Accept':'application/json;odata=verbose',
         "Content-Type": "application/json;odata=verbose",
@@ -48,14 +48,14 @@ export default {
       })
       axios.post(`web/Lists(guid'${rootGetters.listGuid}')/items`,data, {headers:headers})
       .then(response => {
-        commit("SET_LISTITEM_SAVED",true)
+        // commit("SET_LISTITEM_SAVED",true)
+        setTimeout(() => { commit("SET_LISTITEM_SAVED",true)}, 2000);
       })
       .catch(err => {
         console.log(err)
         commit("SET_LISTITEM_SAVED",false)
       })
       .finally(() =>{
-        commit('SET_IS_WORKING', false)
       })
     },
     UPDATE_LISTITEM_ASYNC({dispatch, commit, getters, rootGetters}){
@@ -78,7 +78,8 @@ export default {
 
       axios.post(`web/Lists(guid'${rootGetters.listGuid}')/items(${rootGetters.id})`,data, {headers:headers, validateStatus:validateStatus})
       .then(response => {
-        commit("SET_LISTITEM_SAVED",true)
+        // commit("SET_LISTITEM_SAVED",true)
+        setTimeout(() => { commit("SET_LISTITEM_SAVED",true)}, 2000);
       })
       .catch(err => {
         console.log(err)
