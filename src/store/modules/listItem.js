@@ -35,7 +35,7 @@ export default {
         commit('SET_IS_INITIALIZING', false)
       })
     },
-    CREATE_LISTITEM_ASYNC({dispatch, commit, getters, rootGetters}, payload){
+    CREATE_LISTITEM_ASYNC({dispatch, commit, getters, rootGetters}){
       commit('SET_IS_WORKING', true)
       let headers = {
         'Accept':'application/json;odata=verbose',
@@ -44,7 +44,7 @@ export default {
       }
       let data = JSON.stringify({
         "__metadata": {"type": rootGetters.entityType }, 
-        "Title": payload.title
+        "Title": getters.listItem.Title
       })
       axios.post(`web/Lists(guid'${rootGetters.listGuid}')/items`,data, {headers:headers})
       .then(response => {

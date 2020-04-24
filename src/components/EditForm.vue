@@ -33,7 +33,7 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['listItem','isInitializing','isListItemSaved'])
+    ...mapGetters(['listItem','isListItemSaved'])
   },
   watch:{
     isListItemSaved:function(){
@@ -61,12 +61,5 @@ export default {
       window.location.href = decodeURIComponent(this.$store.getters.source);
     }
   }
-
 }
 </script>
-
-<style scoped>
-.isWorking{
-  color:blue
-}
-</style>
