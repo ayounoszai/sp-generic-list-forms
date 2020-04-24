@@ -2,12 +2,14 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import list from './modules/list'
 import listItem from './modules/listItem'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isWorking:0
+    isWorking:0,
+    formDigestValue:'',
   },
   getters:{
     source(state){
@@ -25,6 +27,9 @@ export default new Vuex.Store({
     isWorking(state){
       return state.isWorking > 0
     },
+    formDigestValue: state => {
+      return state.formDigestValue
+    },
   },
   mutations: {
     SET_IS_WORKING(state, isWorking){
@@ -40,9 +45,17 @@ export default new Vuex.Store({
         state.isWorking = 0
       }
     },
+    SET_FORMDIGESTVALUE(state, response){
+        state.formDigestValue = response.data.d.GetContextWebInformation.FormDigestValue
+    }
   },
   actions: {
-    
+    GET_FORMDIGESTVALUE({dispatch, commit, getters, rootGetters}){
+      axios.post(`contextinfo`,null,{headers:{'Accept':'application/json;odata=verbose'}})
+      .then(response =>{
+        commit('SET_FORMDIGESTVALUE', response)
+      })
+    }
   },
   modules: {
     list, listItem

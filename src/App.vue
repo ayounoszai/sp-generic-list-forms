@@ -31,6 +31,7 @@ export default {
   },
   mounted(){
     store.dispatch('GET_LIST_META_ASYNC')
+    store.dispatch('GET_FORMDIGESTVALUE')
   },
   computed:{
     ...mapGetters(['currentForm','source','id', 'isWorking'])
