@@ -50,7 +50,7 @@ export default {
   actions: {
     GET_LIST_META_ASYNC({dispatch, commit, getters, rootGetters}){
       commit('SET_IS_WORKING', true)
-      return axios.get(`web/Lists(guid'${_spPageContextInfo.pageListId.replace("{","").replace("}","")}')?$select=Title,DefaultDisplayFormUrl,DefaultEditFormUrl,DefaultNewFormUrl,EffectiveBasePermissions,ListItemEntityTypeFullName`)
+      return axios.get(`web/Lists(guid'${rootGetters.listGuid}')?$select=Title,DefaultDisplayFormUrl,DefaultEditFormUrl,DefaultNewFormUrl,EffectiveBasePermissions,ListItemEntityTypeFullName`)
       .then(response => {
         commit('GET_LIST_META', response)
       })

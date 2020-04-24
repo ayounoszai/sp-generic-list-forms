@@ -27,9 +27,12 @@ export default new Vuex.Store({
     isWorking(state){
       return state.isWorking > 0
     },
-    formDigestValue: state => {
+    formDigestValue(state){
       return state.formDigestValue
     },
+    listGuid(state){
+      return _spPageContextInfo.pageListId.replace("{","").replace("}","")
+    }
   },
   mutations: {
     SET_IS_WORKING(state, isWorking){
@@ -46,7 +49,7 @@ export default new Vuex.Store({
       }
     },
     SET_FORMDIGESTVALUE(state, response){
-        state.formDigestValue = response.data.d.GetContextWebInformation.FormDigestValue
+      state.formDigestValue = response.data.d.GetContextWebInformation.FormDigestValue
     }
   },
   actions: {
