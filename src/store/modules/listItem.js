@@ -24,7 +24,6 @@ export default {
   },
   actions:{
     GET_LISTITEM_ASYNC({dispatch, commit, getters, rootGetters}){
-      commit('SET_IS_INITIALIZING', true)
       return axios.get(`web/Lists(guid'${rootGetters.listGuid}')/items(${rootGetters.id})`)
       .then(response => {
         commit('GET_LISTITEM', response)
@@ -33,8 +32,7 @@ export default {
 
       })
       .finally(() =>{
-        // commit('SET_IS_INITIALIZING', false)
-        setTimeout(() => { commit('SET_IS_INITIALIZING', false); console.log('list ITEM finished')}, 2000);
+        commit('SET_IS_INITIALIZING', false)
       })
     },
     CREATE_LISTITEM_ASYNC({dispatch, commit, getters, rootGetters}, payload){
@@ -60,8 +58,7 @@ export default {
         commit('SET_IS_WORKING', false)
       })
     },
-    UPDATE_LISTITEM_ASYNC({dispatch, commit, getters, rootGetters}, payload){
-      commit('SET_IS_WORKING', true)
+    UPDATE_LISTITEM_ASYNC({dispatch, commit, getters, rootGetters}){
       let headers = {
         'Accept':'application/json;odata=verbose',
         "Content-Type": "application/json;odata=verbose",
@@ -71,7 +68,7 @@ export default {
       }
       let data = JSON.stringify({
         "__metadata": {"type": rootGetters.entityType }, 
-        "Title": payload.title
+        "Title": getters.listItem.Title
       })
 
       // Because... IE9 (status code for update is 1223, not... whatever it's actually supposed to be (304?)
@@ -88,7 +85,7 @@ export default {
         commit("SET_LISTITEM_SAVED",false)
       })
       .finally(() =>{
-        commit('SET_IS_WORKING', false)
+
       })
     },
   }

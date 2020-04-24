@@ -8,7 +8,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isInitializing:false,
+    isInitializing:true,
     isWorking:0,
     formDigestValue:'',
   },

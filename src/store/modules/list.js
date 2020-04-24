@@ -18,7 +18,7 @@ export default {
   getters:{
     currentForm(state){
       if(state.defaultForms.new === ''){
-        return "loading"
+        return "display"
       }
       let cur = _spPageContextInfo.serverRequestPath.toLowerCase().replace("_dev","").replace("_","")
       if(cur === state.defaultForms.new.toLowerCase()){
@@ -49,23 +49,22 @@ export default {
   },
   actions: {
     GET_LIST_META_ASYNC({dispatch, commit, getters, rootGetters}){
-      // commit('SET_IS_WORKING', true)
       commit('SET_IS_INITIALIZING', true)
       return axios.get(`web/Lists(guid'${rootGetters.listGuid}')?$select=Title,DefaultDisplayFormUrl,DefaultEditFormUrl,DefaultNewFormUrl,EffectiveBasePermissions,ListItemEntityTypeFullName`)
       .then(response => {
         commit('GET_LIST_META', response)
       })
       .catch(err => {
-        
+
       })
       .finally(() =>{
         if(rootGetters.id > 0 && ['edit','display'].includes(getters.currentForm)){
-          dispatch('GET_LISTITEM_ASYNC')
+          // dispatch('GET_LISTITEM_ASYNC')
+          setTimeout(() => { dispatch('GET_LISTITEM_ASYNC'); console.log('list meta finished') }, 1000);
         }
         else{
           commit('SET_IS_INITIALIZING', false)
         }
-        // setTimeout(() => { commit('SET_IS_WORKING', false); console.log('list meta finished') }, 4000);
       })
     }
   }

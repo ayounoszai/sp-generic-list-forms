@@ -1,18 +1,9 @@
 <template>
-  <div id="app">
-    <!-- <div v-if='isWorking'>
-      <p >Is Working</p>
-      <div class='working'/>
-    </div> -->
-    <new-form v-if="currentForm === 'new'"/>
-    <edit-form v-if="currentForm === 'edit'"/>
+  <div id="app" v-loading="isInitializing">
     <display-form v-if="currentForm === 'display' || isInitializing"/>
+    <new-form v-if="currentForm === 'new' && !isInitializing"/>
+    <edit-form v-if="currentForm === 'edit' && !isInitializing"/>
     <unknown-form v-if="currentForm === 'unknown'"/>
-    
-    
-    <div v-if="currentForm === 'loading'">
-      <!-- <img src='/_layouts/15/images/gears_anv4.gif' alt="loading"/> -->
-    </div>
   </div>
 </template>
 
@@ -34,7 +25,7 @@ export default {
     store.dispatch('GET_FORMDIGESTVALUE')
   },
   computed:{
-    ...mapGetters(['currentForm','source','id', 'isInitializing'])
+    ...mapGetters(['currentForm', 'isInitializing'])
   }
 }
 </script>

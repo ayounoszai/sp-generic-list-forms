@@ -1,9 +1,9 @@
 <template>
   <el-container>
     <el-main>
-      <el-form  ref="thisForm" label-width="120px" v-loading="isInitializing" element-loading-text="" element-loading-spinner='none' element-loading-custom-class='isWorking'>
+      <el-form  ref="thisForm" label-width="120px">
         <!-- Title -->
-         <el-form-item label="Title">
+        <el-form-item label="Title">
           <el-input v-model="listItem.Title" :disabled="true"></el-input>
         </el-form-item>
       </el-form>
@@ -11,7 +11,6 @@
 
     <!-- Buttons -->
     <el-main class="sp-vue-body sp-vue-body-buttons">
-      <!-- <el-button type="primary" @click="validateData" :disabled="isWorking">Save</el-button> -->
       <el-button @click="cancel">Cancel</el-button>
     </el-main>    
   </el-container>
