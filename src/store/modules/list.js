@@ -12,7 +12,8 @@ export default {
     effectiveBasePermissions:{
       high:-1,
       low:-1,
-    }
+    },
+    entityType:''
   },
   getters:{
     currentForm(state){
@@ -31,6 +32,9 @@ export default {
       }
       return "unknown"
     },
+    entityType(state){
+      return state.entityType
+    }
   },
   mutations: {
     GET_LIST_META(state, response){
@@ -40,12 +44,13 @@ export default {
       state.title = response.data.d.Title
       state.effectiveBasePermissions.high = Number(response.data.d.EffectiveBasePermissions.High)
       state.effectiveBasePermissions.low = Number(response.data.d.EffectiveBasePermissions.Low)
+      state.entityType = response.data.d.ListItemEntityTypeFullName
     },
   },
   actions: {
     GET_LIST_META_ASYNC({dispatch, commit, getters, rootGetters}){
       commit('SET_IS_WORKING', true)
-      return axios.get(`web/Lists(guid'${_spPageContextInfo.pageListId.replace("{","").replace("}","")}')?$select=Title,DefaultDisplayFormUrl,DefaultEditFormUrl,DefaultNewFormUrl,EffectiveBasePermissions`)
+      return axios.get(`web/Lists(guid'${_spPageContextInfo.pageListId.replace("{","").replace("}","")}')?$select=Title,DefaultDisplayFormUrl,DefaultEditFormUrl,DefaultNewFormUrl,EffectiveBasePermissions,ListItemEntityTypeFullName`)
       .then(response => {
         commit('GET_LIST_META', response)
       })
