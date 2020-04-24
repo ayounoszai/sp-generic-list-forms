@@ -19,7 +19,7 @@ export default {
       if(state.defaultForms.new === ''){
         return "loading"
       }
-      let cur = _spPageContextInfo.serverRequestPath.toLowerCase().replace("dev","").replace("_","")
+      let cur = _spPageContextInfo.serverRequestPath.toLowerCase().replace("_dev","").replace("_","")
       if(cur === state.defaultForms.new.toLowerCase()){
         return 'new'
       }
