@@ -58,6 +58,26 @@ export default {
 
 
 section.el-container{
+  display:inline-block;
   width:750px;
+}
+
+
+.sp-vue-body{
+  border: 0px hidden #d8d8d8;
+  padding: 8px;
+  vertical-align: top;
+  text-align: left;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #000000;
+  display: inline;
+  font-size: 12pt;
+  text-align: left;
+}
+.sp-vue-body-buttons{
+  display:block;
+  text-align:right;
+  padding-right:20px;
 }
 </style>
