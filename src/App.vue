@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <div v-if='isWorking'>
+    <!-- <div v-if='isWorking'>
       <p >Is Working</p>
       <div class='working'/>
-    </div>
+    </div> -->
     <new-form v-if="currentForm === 'new'"/>
     <edit-form v-if="currentForm === 'edit'"/>
     <display-form v-if="currentForm === 'display'"/>

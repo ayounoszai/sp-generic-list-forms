@@ -60,5 +60,36 @@ export default {
         commit('SET_IS_WORKING', false)
       })
     },
+    UPDATE_LISTITEM_ASYNC({dispatch, commit, getters, rootGetters}, payload){
+      commit('SET_IS_WORKING', true)
+      let headers = {
+        'Accept':'application/json;odata=verbose',
+        "Content-Type": "application/json;odata=verbose",
+        "X-RequestDigest": rootGetters.formDigestValue,
+        "X-HTTP-Method": "MERGE", // <-- for update request
+        "IF-MATCH": "*" // <-- for update request
+      }
+      let data = JSON.stringify({
+        "__metadata": {"type": rootGetters.entityType }, 
+        "Title": payload.title
+      })
+
+      // Because... IE9 (status code for update is 1223, not... whatever it's actually supposed to be (304?)
+      let validateStatus = function(status){
+        return status === 1223 || status < 400
+      }
+
+      axios.post(`web/Lists(guid'${rootGetters.listGuid}')/items(${rootGetters.id})`,data, {headers:headers, validateStatus:validateStatus})
+      .then(response => {
+        commit("SET_LISTITEM_SAVED",true)
+      })
+      .catch(err => {
+        console.log(err)
+        commit("SET_LISTITEM_SAVED",false)
+      })
+      .finally(() =>{
+        commit('SET_IS_WORKING', false)
+      })
+    },
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-main>
-      <el-form :model='formFields' ref="thisForm" :rules="formRules" label-width="120px" v-loading="isWorking" element-loading-text="" element-loading-spinner='none' element-loading-custom-class='isWorking'>
+      <el-form  ref="thisForm" label-width="120px" v-loading="isWorking" element-loading-text="" element-loading-spinner='none' element-loading-custom-class='isWorking'>
         <!-- Title -->
          <el-form-item label="Title">
           <el-input v-model="listItem.Title" :disabled="true"></el-input>
