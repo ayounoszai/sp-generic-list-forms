@@ -47,7 +47,7 @@ export default {
       let isValid = false
       this.$refs['thisForm'].validate((valid) => {
         if(!valid){
-          console.log("Nope")
+          this.$notify.error({title: 'Validation errors exist', message: 'Please correct the errors (shown in red) before attempting to save.'});
         }
         else{
           this.save()
