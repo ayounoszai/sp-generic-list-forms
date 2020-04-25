@@ -4,7 +4,6 @@
     <new-form v-if="currentForm === 'new' && formAction !== 'initializing'"/>
     <edit-form v-if="currentForm === 'edit' && formAction !== 'initializing'"/>
     <unknown-form v-if="currentForm === 'unknown'"/>
-    {{formAction}}
   </div>
 </template>
 
