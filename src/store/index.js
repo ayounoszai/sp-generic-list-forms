@@ -2,15 +2,17 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import list from './modules/list'
 import listItem from './modules/listItem'
+import error from './modules/error'
 import axios from 'axios'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isInitializing:true,
-    isSaving:false,
+    // isInitializing:true,
+    // isSaving:false,
     formDigestValue:'',
+    formAction:'initializing'
   },
   getters:{
     source(state){
@@ -25,11 +27,8 @@ export default new Vuex.Store({
       let string = reg.exec(href);
       return string ? Number(string[1]) : 0;
     },
-    isInitializing(state){
-      return state.isInitializing
-    },
-    isSaving(state){
-      return state.isSaving
+    formAction(state){
+      return state.formAction
     },
     formDigestValue(state){
       return state.formDigestValue
@@ -39,11 +38,13 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    SET_IS_INITIALIZING(state, isInitializing){
-      state.isInitializing = isInitializing
-    },
-    SET_IS_SAVING(state, isSaving){
-      state.isSaving = isSaving
+    SET_FORM_ACTION(state, action){
+      // initializing - when it the form is getting the data and populating fields
+      // resting - after the form has been initialized and is waiting for the user to do something
+      // saving - user has clicked on the save button and we're doing work
+      // saved - if the work completed successfully
+      // errored - if there was an error at any point (either during initializing or saving)
+      state.formAction = action
     },
     SET_FORMDIGESTVALUE(state, response){
       state.formDigestValue = response.data.d.GetContextWebInformation.FormDigestValue
@@ -55,9 +56,14 @@ export default new Vuex.Store({
       .then(response =>{
         commit('SET_FORMDIGESTVALUE', response)
       })
+      .catch(error => {
+
+        // commit('SET_ERROR', error.response)
+        // commit('SET_FORM_ACTION', 'errored')
+      })
     }
   },
   modules: {
-    list, listItem
+    list, listItem,error
   }
 })

@@ -1,9 +1,10 @@
 <template>
-  <div id="app" v-loading="isInitializing">
-    <display-form v-if="currentForm === 'display' || isInitializing"/>
-    <new-form v-if="currentForm === 'new' && !isInitializing"/>
-    <edit-form v-if="currentForm === 'edit' && !isInitializing"/>
+  <div id="app" v-loading="formAction === 'initializing'">
+    <display-form v-if="currentForm === 'display' || formAction === 'initializing'"/>
+    <new-form v-if="currentForm === 'new' && formAction !== 'initializing'"/>
+    <edit-form v-if="currentForm === 'edit' && formAction !== 'initializing'"/>
     <unknown-form v-if="currentForm === 'unknown'"/>
+    {{formAction}}
   </div>
 </template>
 
@@ -25,7 +26,7 @@ export default {
     store.dispatch('GET_FORMDIGESTVALUE')
   },
   computed:{
-    ...mapGetters(['currentForm', 'isInitializing'])
+    ...mapGetters(['currentForm', 'formAction'])
   }
 }
 </script>
@@ -68,13 +69,5 @@ section.el-container{
 /* having the specific classes NOT scoped is the only way i can get the text for "disabled" textboxes to be dark enough to read */
 .el-input.is-disabled .el-input__inner{
   color:#444 !important
-}
-
-.error-summary{
-  font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
-  font-size:16px;
-}
-.error-message{
-  text-align: left;
 }
 </style>

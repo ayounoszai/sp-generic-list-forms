@@ -11,31 +11,37 @@
 
     <!-- Buttons -->
     <el-main class="sp-vue-body sp-vue-body-buttons">
-      <el-button @click="edit" type="primary">Edit</el-button>
-      <el-button @click="cancel">Cancel</el-button>
+      <el-button @click="edit" type="primary" :disabled="formAction !== 'resting'">Edit</el-button>
+      <el-button @click="cancel" :disabled="!['resting','errored'].includes(formAction)">Cancel</el-button>
     </el-main>    
+
+    <!-- Error -->
+    <Error v-if="formAction === 'errored'"></Error>
+
   </el-container>
 </template>
 
 <script>
 import {mapState, mapGetters, mapActions} from 'vuex'
-
+import Error from './Error.vue'
 
 export default {
   name:'DisplayForm',
+  components:{
+    Error
+  },
   data(){
     return{
     }
   },
   computed:{
-    ...mapGetters(['listItem','isInitializing','editFormUrl'])
+    ...mapGetters(['listItem','formAction','editFormUrl'])
   },
   methods:{
     edit(){
       window.location.href = decodeURIComponent(this.$store.getters.editFormUrl);
     },
     cancel(){
-      console.log(this.$store.getters.source)
       window.location.href = decodeURIComponent(this.$store.getters.source);
     }
   }

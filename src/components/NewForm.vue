@@ -11,31 +11,25 @@
 
     <!-- Buttons -->
     <el-main class="sp-vue-body sp-vue-body-buttons">
-      <el-button type="primary" @click="validateData" :disabled="isSaving">Save</el-button>
-      <el-button @click="cancel" :disabled="isSaving">Cancel</el-button>
-    </el-main>  
+      <el-button type="primary" @click="validateData" :disabled="formAction !== 'resting'">Save</el-button>
+      <el-button @click="cancel" :disabled="!['resting','errored'].includes(formAction)">Cancel</el-button>
+    </el-main> 
 
     <!-- Error -->
-    <el-main v-if="isListItemSaved === false">
-      <el-alert type="error" effect="dark" show-icon :closable="false">
-        <p class='error-summary'>We had an issue with saving the item</p>
-      </el-alert>
-      <el-card class="error-message">
-        <p class="error-summary">The server returned the following message:</p>
-        <blockquote>{{listItemError.data.error.message.value}}</blockquote>
-        <el-link @click="showErrorMessage = !showErrorMessage" type="primary">Click here to view the raw error message</el-link>
-        <p v-if="showErrorMessage">{{listItemError}}</p>
-      </el-card>
-    </el-main>  
+    <Error v-if="formAction === 'errored'"></Error>
       
   </el-container>
 </template>
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
+import Error from './Error.vue'
 
 export default {
   name:'NewForm',
+  components:{
+    Error
+  },
   data(){
     return{
       showErrorMessage:false,
@@ -48,17 +42,17 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['listItem','isSaving','isListItemSaved','listItemError'])
+    ...mapGetters(['listItem','formAction'])
   },
   watch:{
-    isListItemSaved:function(){
-      if(this.isListItemSaved === true){
+    formAction:function(){
+      if(this.formAction === 'saved'){
         window.location.href = decodeURIComponent(this.$store.getters.source)
       }
-      else{
+      else if(this.formAction === 'errored'){
         this.$notify.error({title: 'There was an error saving the item', message:"Please see below for more details on what happened."});
       }
-    },
+    }
   },
   methods:{
     validateData(){
