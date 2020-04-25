@@ -32,6 +32,9 @@ export default {
       }
       return "unknown"
     },
+    editFormUrl(state){
+      return window.location.href.replace(state.defaultForms.display, state.defaultForms.edit)
+    },
     entityType(state){
       return state.entityType
     }

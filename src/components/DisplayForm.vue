@@ -11,6 +11,7 @@
 
     <!-- Buttons -->
     <el-main class="sp-vue-body sp-vue-body-buttons">
+      <el-button @click="edit" type="primary">Edit</el-button>
       <el-button @click="cancel">Cancel</el-button>
     </el-main>    
   </el-container>
@@ -27,9 +28,13 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['listItem','isInitializing'])
+    ...mapGetters(['listItem','isInitializing','editFormUrl'])
   },
   methods:{
+    edit(){
+      // console.log(this.$store.getters.editFormUrl)
+      window.location.href = decodeURIComponent(this.$store.getters.editFormUrl);
+    },
     cancel(){
       window.location.href = decodeURIComponent(this.$store.getters.source);
     }
