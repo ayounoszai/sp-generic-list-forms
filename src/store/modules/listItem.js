@@ -4,7 +4,8 @@ export default {
   // namespaced:true,
   state: {
     listItem:{},
-    isListItemSaved:null
+    isListItemSaved:null,
+    listItemError:{}
   },
   getters:{
     listItem:state => {
@@ -12,6 +13,9 @@ export default {
     },
     isListItemSaved(state){
       return state.isListItemSaved
+    },
+    listItemError(state){
+      return state.listItemError
     }
   },
   mutations:{
@@ -20,6 +24,9 @@ export default {
     },
     SET_LISTITEM_SAVED(state, isSaved){
       state.isListItemSaved = isSaved
+    },
+    SET_ERROR(state, error){
+      state.listItemError = error
     }
   },
   actions:{
@@ -48,17 +55,17 @@ export default {
       })
       axios.post(`web/Lists(guid'${rootGetters.listGuid}')/items`,data, {headers:headers})
       .then(response => {
-        // commit("SET_LISTITEM_SAVED",true)
-        setTimeout(() => { commit("SET_LISTITEM_SAVED",true)}, 2000);
+        setTimeout(() => { commit("SET_LISTITEM_SAVED",true)}, process.env.VUE_APP_ASYNC_LAG);
       })
-      .catch(err => {
-        console.log(err)
-        commit("SET_LISTITEM_SAVED",false)
+      .catch(error => {
+        setTimeout(() => {commit("SET_LISTITEM_SAVED", false)}, process.env.VUE_APP_ASYNC_LAG);
+        commit('SET_ERROR', error.response)
       })
       .finally(() =>{
       })
     },
     UPDATE_LISTITEM_ASYNC({dispatch, commit, getters, rootGetters}){
+      commit('SET_IS_SAVING', true)
       let headers = {
         'Accept':'application/json;odata=verbose',
         "Content-Type": "application/json;odata=verbose",
@@ -78,12 +85,11 @@ export default {
 
       axios.post(`web/Lists(guid'${rootGetters.listGuid}')/items(${rootGetters.id})`,data, {headers:headers, validateStatus:validateStatus})
       .then(response => {
-        // commit("SET_LISTITEM_SAVED",true)
-        setTimeout(() => { commit("SET_LISTITEM_SAVED",true)}, 2000);
+        setTimeout(() => { commit("SET_LISTITEM_SAVED",true)}, process.env.VUE_APP_ASYNC_LAG);
       })
-      .catch(err => {
-        console.log(err)
-        commit("SET_LISTITEM_SAVED",false)
+      .catch(error => {
+        setTimeout(() => {commit("SET_LISTITEM_SAVED", false)}, process.env.VUE_APP_ASYNC_LAG);
+        commit('SET_ERROR', error.response)
       })
       .finally(() =>{
 

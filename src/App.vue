@@ -69,4 +69,12 @@ section.el-container{
 .el-input.is-disabled .el-input__inner{
   color:#444 !important
 }
+
+.error-summary{
+  font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+  font-size:16px;
+}
+.error-message{
+  text-align: left;
+}
 </style>
