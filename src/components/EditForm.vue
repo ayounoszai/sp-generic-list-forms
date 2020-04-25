@@ -49,7 +49,7 @@ export default {
         window.location.href = decodeURIComponent(this.$store.getters.source)
       }
       else if(this.formAction === 'errored'){
-        this.$notify.error({title: 'There was an error saving the item', message:"Please see below for more details on what happened."});
+        this.$notify.error({title: 'There was an error saving the item', message:"Please see below for more details on what happened.", position: process.env.VUE_APP_NOTIFICATION_POSITION});
       }
     },
   },
@@ -58,7 +58,7 @@ export default {
       let isValid = false
       this.$refs['thisForm'].validate((valid) => {
         if(!valid){
-          this.$notify.error({title: 'Validation errors exist', message: 'Please correct the errors (shown in red) before attempting to save.'});
+          this.$notify.error({title: 'Validation errors exist', message: 'Please correct the errors (shown in red) before attempting to save.', position: process.env.VUE_APP_NOTIFICATION_POSITION});
         }
         else{
           this.save()
@@ -66,7 +66,7 @@ export default {
       })
     },
     save(){
-      this.$notify.info({title: 'Saving...', duration: process.env.VUE_APP_ASYNC_LAG});
+      this.$notify.info({title: 'Saving...', duration: process.env.VUE_APP_ASYNC_LAG, position: process.env.VUE_APP_NOTIFICATION_POSITION});
       this.$store.dispatch('UPDATE_LISTITEM_ASYNC')
     },
     cancel(){
