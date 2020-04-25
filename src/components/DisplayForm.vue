@@ -32,10 +32,10 @@ export default {
   },
   methods:{
     edit(){
-      // console.log(this.$store.getters.editFormUrl)
       window.location.href = decodeURIComponent(this.$store.getters.editFormUrl);
     },
     cancel(){
+      console.log(this.$store.getters.source)
       window.location.href = decodeURIComponent(this.$store.getters.source);
     }
   }

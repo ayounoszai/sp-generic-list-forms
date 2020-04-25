@@ -17,7 +17,7 @@ export default new Vuex.Store({
       let href =  window.location.href.toLowerCase();
       let reg = new RegExp( '[?&]source=([^&#]*)', 'i' );
       let string = reg.exec(href);
-      return string ? decodeURIComponent(string[1]) : '';
+      return string ? decodeURIComponent(string[1]) : _spPageContextInfo.listUrl;
     },
     id(state){
       let href =  window.location.href.toLowerCase();
