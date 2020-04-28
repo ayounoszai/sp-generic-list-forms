@@ -9,6 +9,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    userName:'',
     formDigestValue:'',
     formAction:'initializing'
   },
@@ -33,6 +34,9 @@ export default new Vuex.Store({
     },
     listGuid(state){
       return _spPageContextInfo.pageListId.replace("{","").replace("}","")
+    },
+    userName(state){
+      return state.userName
     }
   },
   mutations: {
@@ -46,6 +50,9 @@ export default new Vuex.Store({
     },
     SET_FORMDIGESTVALUE(state, response){
       state.formDigestValue = response.data.d.GetContextWebInformation.FormDigestValue
+    },
+    SET_CURRENT_USER(state, response){
+      state.userName = response.data.d.Title
     }
   },
   actions: {
@@ -53,6 +60,15 @@ export default new Vuex.Store({
       axios.post(`contextinfo`,null,{headers:{'Accept':'application/json;odata=verbose'}})
       .then(response =>{
         commit('SET_FORMDIGESTVALUE', response)
+      })
+      .catch(error => {
+        console.log(error.response)
+      })
+    },
+    GET_CURRENT_USER({dispatch, commit, getters, rootGetters}){
+      axios.get(`web/currentuser`, null)
+      .then(response => {
+        commit("SET_CURRENT_USER", response)
       })
       .catch(error => {
         console.log(error.response)

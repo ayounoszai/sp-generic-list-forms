@@ -23,6 +23,7 @@ export default {
   mounted(){
     store.dispatch('GET_LIST_META_ASYNC')
     store.dispatch('GET_FORMDIGESTVALUE')
+    // store.dispatch('GET_CURRENT_USER')  //*** uncomment if you want the current user's info requested */
   },
   computed:{
     ...mapGetters(['currentForm', 'formAction'])
