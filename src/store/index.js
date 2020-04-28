@@ -9,8 +9,6 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    // isInitializing:true,
-    // isSaving:false,
     formDigestValue:'',
     formAction:'initializing'
   },
@@ -57,13 +55,11 @@ export default new Vuex.Store({
         commit('SET_FORMDIGESTVALUE', response)
       })
       .catch(error => {
-
-        // commit('SET_ERROR', error.response)
-        // commit('SET_FORM_ACTION', 'errored')
+        console.log(error.response)
       })
     }
   },
   modules: {
-    list, listItem,error
+    list, listItem, error
   }
 })
