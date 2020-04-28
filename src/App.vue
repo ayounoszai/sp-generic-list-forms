@@ -1,6 +1,7 @@
 <template>
   <div id="app" v-loading="formAction === 'initializing'">
-    <display-form v-if="currentForm === 'display' || formAction === 'initializing'"/>
+    <initializing-form v-if="formAction === 'initializing'"></initializing-form>
+    <display-form v-if="currentForm === 'display' && formAction !== 'initializing'"/>
     <new-form v-if="currentForm === 'new' && formAction !== 'initializing'"/>
     <edit-form v-if="currentForm === 'edit' && formAction !== 'initializing'"/>
     <unknown-form v-if="currentForm === 'unknown'"/>
@@ -10,6 +11,7 @@
 <script>
 import store from './store'
 import {mapState, mapGetters, mapActions} from 'vuex'
+import InitializingForm from './components/InitializingForm.vue'
 import NewForm from './components/NewForm.vue'
 import EditForm from './components/EditForm.vue'
 import DisplayForm from './components/DisplayForm.vue'
@@ -18,7 +20,7 @@ import UnknownForm from './components/UnknownForm.vue'
 export default {
   name: 'app',
   components: {
-    NewForm, EditForm, DisplayForm, UnknownForm
+    InitializingForm, NewForm, EditForm, DisplayForm, UnknownForm
   },
   mounted(){
     store.dispatch('GET_LIST_META_ASYNC')
